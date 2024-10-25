@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="cartView">
+    <div class="alert alert-success" role="alert" th:if="${cartItems.isEmpty()}">
+        <h3>No item in Cart!</h3>
+    </div>
+    <div>
+        <form th:action="@{/customer/checkout}" th:object="${bookDto}" method="get">
+            <table class="table table-striped" th:if="${!cartItems.isEmpty()}">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item:${cartItems}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.title}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td><a th:href="@{'/cart/delete/'+${item.id}}" class="btn btn-outline-danger">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="p-4">
+                <a th:if="${!cartItems.isEmpty()}" th:href="@{/cart/clear}" class="btn btn-outline-danger ms-3">Clear Cart</a>
+                <a th:href="@{/shop/show-all-books}" class="btn btn-outline-info">Continue Shopping</a>
+                <button th:if="${!cartItems.isEmpty()}" type="submit" class="btn btn-outline-info">Checkout</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

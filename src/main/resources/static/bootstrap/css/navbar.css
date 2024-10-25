@@ -1,0 +1,29 @@
+#dashboard-navbar {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text color */
+}
+
+.navbar {
+    background-color: #111; /* Darker background for navbar */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand, .nav-link {
+    transition: color 0.3s;
+}
+
+.nav-link {
+    color: #fff; /* White links */
+}
+
+.nav-link:hover {
+    color: #f0ad4e; /* Light orange on hover */
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1); /* Light border for toggler */
+}
+
+.navbar-toggler-icon {
+    background-color: rgba(255, 255, 255, 0.5); /* Light icon color */
+}

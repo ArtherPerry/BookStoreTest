@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>All Orders</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body th:fragment="allOrders">
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Order ID</th>
+    <th>Customer Name</th>
+    <th>Items</th>
+    <th>Total Price</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order : ${allOrders}">
+    <td th:text="${order.id}"></td>
+    <td th:text="${order.customer.name}"></td>
+    <td>
+      <ul>
+        <li th:each="book : ${order.books}" th:text="${book.title}"></li>
+      </ul>
+    </td>
+    <td th:text="${#numbers.formatDecimal(order.totalAmount / 100, 2, 2)}"></td>
+    <td th:text="${order.orderStatus}"></td>
+    <td>
+      <form th:action="@{/order/update-status/{id}(id=${order.id})}" method="post">
+        <select name="newStatus" required>
+          <option value="">Select Status</option>
+          <option value="PLACED" th:selected="${order.orderStatus == 'PLACED'}">Placed</option>
+          <option value="ONGOING" th:selected="${order.orderStatus == 'ONGOING'}">Ongoing</option>
+          <option value="DELIVERED" th:selected="${order.orderStatus == 'DELIVERED'}">Delivered</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-outline-success">Update Status</button>
+      </form>
+      <a th:href="@{/admin/order/delete/{id}(id=${order.id})}" class="btn btn-sm btn-outline-danger">Delete</a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

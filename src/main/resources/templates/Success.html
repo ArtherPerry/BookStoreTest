@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout/shopViewLayout::layout(~{::main})}"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Checkout Successful</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Success Message -->
+                        <div class="alert alert-success">
+                            <h5>Your order has been successfully placed!</h5>
+                            <p>Thank you for your purchase. We will send you a confirmation email with the order details shortly.</p>
+                        </div>
+
+                        <!-- Order Details -->
+                        <div>
+                            <h5>Order Summary</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${cartItems}">
+                                    <td th:text="${item.id}"></td>
+                                    <td th:text="${item.title}"></td>
+                                    <td th:text="${item.price}"></td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="2" class="text-right"><strong>Total:</strong></td>
+                                    <td th:text="${#numbers.formatDecimal(cartItems.stream().mapToDouble(item -> item.price).sum(), 1, 2)}"></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- Customer Information -->
+                        <div>
+                            <h5>Customer Information</h5>
+                            <p><strong>Name:</strong> <span th:text="${customer.name}"></span></p>
+                            <p><strong>Phone:</strong> <span th:text="${customer.phoneNumber}"></span></p>
+                            <p><strong>Address:</strong> <span th:text="${customer.address}"></span></p>
+                            <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div>
+                            <h5>Payment Method</h5>
+                            <p th:text="'Payment Method: ' + ${customer.paymentMethod}"></p>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a href="/" class="btn btn-primary">Return to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

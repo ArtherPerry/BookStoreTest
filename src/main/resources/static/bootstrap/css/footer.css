@@ -1,0 +1,21 @@
+ #dashboard-footer {
+    background-color: #000; /* Ensure the background matches your theme */
+    color: #fff; /* White text for visibility */
+}
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #111; /* Darker footer background */
+    padding: 30px 0; /* More padding for a spacious feel */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+}
+.footer-text {
+    margin: 0;
+    font-size: 1.2rem; /* Slightly larger text */
+}
+@media (max-width: 576px) {
+    .footer-text {
+        font-size: 1rem; /* Smaller text on mobile devices */
+    }
+}

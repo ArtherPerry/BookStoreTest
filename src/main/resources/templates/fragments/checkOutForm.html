@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Checkout Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Stripe JS -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f0f4f8, #e7e9eb);
+      color: #333;
+    }
+
+    .container {
+      margin-top: 30px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      color: white;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      text-align: center;
+    }
+
+    .card-header h4 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .table {
+      margin: 20px 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: #f8f9fa;
+    }
+
+    .table-striped tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .form-control {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .form-check-input:checked {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .payment-section {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #e7e9eb;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    .alert {
+      border-radius: 5px;
+    }
+
+    .img-fluid {
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+<div class="container" th:fragment="checkOutForm">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h4>Check Out Form</h4>
+        </div>
+        <div class="card-body">
+          <!-- Display success or error message -->
+          <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+          <div th:if="${message}" class="alert alert-info" th:text="${message}"></div>
+          <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+          <!-- Cart Items Table -->
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cartItems}">
+              <td th:text="${item.id}"></td>
+              <td th:text="${item.title}"></td>
+              <td th:text="${item.price}"></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <!-- Checkout Form -->
+          <form id="checkout-form" th:object="${customer}" th:action="@{/customer/save}" method="post" enctype="multipart/form-data">
+            <!-- Customer Details -->
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" th:field="*{name}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="ph">Phone Number</label>
+              <input type="tel" id="ph" th:field="*{phoneNumber}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" th:field="*{address}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="zipcode">Zipcode</label>
+              <input type="number" id="zipcode" th:field="*{zipcode}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" th:field="*{email}" class="form-control" required>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="form-group">
+              <label>Payment Method</label><br>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="qrCode" name="paymentMethod" value="QR Code" th:field="*{paymentMethod}" required>
+                <label class="form-check-label" for="qrCode">QR Code Scan</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="cardPayment" name="paymentMethod" value="Card" th:field="*{paymentMethod}" required>
+                <label class="form-check-label" for="cardPayment">Card Payment</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="cashOnDelivery" name="paymentMethod" value="Cash on Delivery" th:field="*{paymentMethod}" required>
+                <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
+              </div>
+            </div>
+
+            <!-- Payment Sections (conditionally displayed) -->
+            <div id="qrCodeSection" class="payment-section" style="display: none;">
+              <h5>Scan QR Code</h5>
+              <img th:src="@{/images/qr-code.png}" alt="QR Code" class="img-fluid">
+              <p>Please scan the QR code with your mobile banking app.</p>
+              <!-- Upload payment receipt -->
+              <div class="form-group">
+                <label for="paymentReceipt">Upload Payment Receipt</label>
+                <input type="file" id="paymentReceipt" name="receiptFile" class="form-control-file" accept="image/*" required>
+              </div>
+            </div>
+
+            <!-- Stripe Elements for Card Payment -->
+            <div id="cardPaymentSection" class="payment-section" style="display: none;">
+              <div class="form-group">
+                <label for="card-element">Card Details</label>
+                <div id="card-element" class="form-control">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <!-- Used to display form errors. -->
+                <div id="card-errors" class="text-danger" role="alert"></div>
+              </div>
+            </div>
+
+            <div id="cashOnDeliverySection" class="payment-section" style="display: none;">
+              <p>You will pay in cash upon delivery.</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Stripe setup
+  const stripe = Stripe('pk_test_51QAlHsABZX6fFftAQNogz8HPOMvYHHTZHIytUqK6cWAhCXBey1tKAc67DPnUa3toIC0HDWdodNo5cSYUpTjrwmk200lNRcgio4');
+  const elements = stripe.elements();
+  const card = elements.create('card');
+  card.mount('#card-element');
+
+  // Handle form submission
+  const form = document.getElementById('checkout-form');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+    if (paymentMethod === 'Card') {
+      // Create payment intent and handle Stripe payment
+      const {error, paymentIntent} = await stripe.confirmCardPayment("[[${paymentIntentClientSecret}]]", {
+        payment_method: {
+          card: card,
+        }
+      });
+
+      if (error) {
+        // Display error in the form
+        document.getElementById('card-errors').textContent = error.message;
+      } else {
+        // Submit the form if payment is successful
+        form.submit();
+      }
+    } else {
+      // For non-card payments, just submit the form
+      form.submit();
+    }
+  });
+
+  // Show/hide payment sections based on selected payment method
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((input) => {
+      input.addEventListener('change', function () {
+        // Hide all payment sections
+        document.querySelectorAll('.payment-section').forEach((section) => {
+          section.style.display = 'none';
+        });
+
+        // Show selected payment section
+        const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        if (selectedPaymentMethod === 'QR Code') {
+          document.getElementById('qrCodeSection').style.display = 'block';
+        } else if (selectedPaymentMethod === 'Card') {
+          document.getElementById('cardPaymentSection').style.display = 'block';
+        } else {
+          document.getElementById('cashOnDeliverySection').style.display = 'block';
+        }
+      });
+    });
+
+    // Trigger change event to show the default selected method on page load
+    document.querySelector('input[name="paymentMethod"]:checked').dispatchEvent(new Event('change'));
+  });
+</script>
+</body>
+</html>

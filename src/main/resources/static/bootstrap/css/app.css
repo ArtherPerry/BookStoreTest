@@ -1,0 +1,76 @@
+.nav{
+    font-family: 'Raleway',sans-serif;
+}
+.navbar-brand{
+    font-family: 'Handlee', cursive;
+    font-size: 2rem !important;
+    color: white !important;
+}
+.navbar .nav-link{
+    color: white !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+.navbar .nav-item.active{
+    border-left: lightslategray 4px solid;
+}
+
+#overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.carousel-item{
+    height: 450px;
+}
+.carousel-item.carousel-image-1{
+    background: url("https://images.unsplash.com/photo-1515125520141-3e3b67bc0a88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTIyfHxib29rc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+    background-size: cover;
+}
+.carousel-item.carousel-image-2{
+    background: url("https://images.unsplash.com/photo-1522211988038-6fcbb8c12c7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjU4fHxib29rc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+    background-size: cover;
+}
+.carousel-item.carousel-image-3{
+    background: url("https://images.unsplash.com/photo-1614791962365-7590111b1b1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80");
+    background-size: cover;
+}
+.home-icon{
+    font-size: 16px;
+}
+#home-heading {
+    position: relative;
+    min-height: 200px;
+    background: url("https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=2607&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100vw; /* Ensure it spans the entire width of the viewport */
+    margin: 0; /* Remove default margin */
+    color: white;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+
+
+}
+
+#quote i{
+    color: deepskyblue;
+    opacity: 0.3;
+}
+#newsletters{
+    background: #6c757d !important;
+}
+#footer{
+    background: black;
+}
+.carousel-indicators{
+    display: none;
+}
+

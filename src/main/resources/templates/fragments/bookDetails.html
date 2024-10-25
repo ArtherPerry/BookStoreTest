@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Details</title>
+  <link rel="stylesheet" href="../../static/bootstrap/css/bookdetails.css" th:href="@{/bootstrap/css/bookdetails.css}">
+</head>
+<body th:fragment="bookDetail">
+<div class=" mt-5 p-5">
+  <div class="row">
+    <div class="col-5 mt-3 p-5">
+      <img th:src="${book.imageUrl}" width="400" height="300" alt="Image" class="img-fluid">
+    </div>
+    <div class="col-7 p-5">
+      <h1 class="text-center">Book Details</h1>
+      <div class="card-body mt-2">
+        <h3  th:text="${book.title}"></h3>
+        <p class="lead " th:text="${book.yearPublished} + ' published'"><i class="bi bi-dot"></i></p>
+        <p class="lead " th:text="${book.description}"></p>
+        <p class="lead " th:text="'Written by - ' + ${book.author.authorName}"></p>
+        <p class="lead " th:text="'It costs = ' + ${book.price}"></p>
+        <p class="lead ">
+          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur blanditiis consequatur dicta dolore dolorem, eos excepturi exercitationem molestias mollitia nemo odio quisquam rem sapiente suscipit tempore vitae. Ea, sequi.</span>
+        </p>
+      </div>
+      <div>
+        <a th:href="@{'/cart/add/'+${book.id}}" class="btn btn-primary  ms-3">AddToCart</a>
+        <a th:href="@{/shop/show-all-books}" class="btn btn-info ms-3">ContinueShopping</a>
+        <a th:href="@{/shop/cart/view}" class="btn btn-warning ms-3">View Cart</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

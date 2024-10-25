@@ -1,0 +1,106 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif; /* Clean and modern font */
+    background-color: #f8f9fa; /* Light background for contrast */
+    color: #333; /* Dark text for readability */
+}
+
+/* Row Styles */
+.row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: center; /* Center items horizontally */
+}
+
+/* Card Styles */
+.card {
+    border: none; /* No border for cards */
+    border-radius: 15px; /* Round corners for cards */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+}
+
+/* Card Image Styles */
+.card-img-top {
+    border-top-left-radius: 15px; /* Round top corners */
+    border-top-right-radius: 15px; /* Round top corners */
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Card Title Styles */
+.card-title {
+    font-size: 1.5rem; /* Title size */
+    color: #007bff; /* Title color */
+    margin-bottom: 10px; /* Space below title */
+}
+
+/* Card Text Styles */
+.card-text {
+    font-size: 1rem; /* Description size */
+    color: #666; /* Gray color for text */
+    margin-bottom: 15px; /* Space below text */
+}
+
+/* Button Styles */
+.btn {
+    font-size: 14px; /* Button font size */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 5px; /* Round button corners */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.btn-info {
+    background-color: #17a2b8; /* Info button color */
+    color: white; /* Text color */
+}
+
+.btn-info:hover {
+    background-color: #138496; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2); /* Enhanced shadow */
+}
+
+/* Flex Styles for Bottom Row */
+.d-flex {
+    display: flex; /* Use flexbox */
+}
+
+.justify-content-between {
+    justify-content: space-between; /* Space between items */
+}
+
+.align-items-center {
+    align-items: center; /* Center vertically */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px; /* Space below cards */
+    }
+
+    .card-title {
+        font-size: 1.2rem; /* Smaller title on mobile */
+    }
+
+    .card-text {
+        font-size: 0.9rem; /* Smaller description on mobile */
+    }
+}
+
+@media (max-width: 576px) {
+    .card-title {
+        font-size: 1rem; /* Even smaller title on mobile */
+    }
+
+    .btn {
+        font-size: 12px; /* Smaller buttons on mobile */
+        padding: 8px 15px; /* Smaller button padding */
+    }
+}

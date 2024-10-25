@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="../../static/bootstrap/css/list-books.css">
+</head>
+<body>
+<div th:fragment="bookCard" class="row p-5">
+  <div class="col-md-6" th:each="book:${allbooks}">
+    <div class="card mb-3 shadow text-center">
+      <img th:src="${book.imageUrl}" alt="Card Image" class="card-img-top">
+      <div class="card-body">
+        <h3 class="card-title mb-3" th:text="${book.title}"></h3>
+        <p class="card-text" th:text="${#strings.substring(book.description,0,5)+'...'}"></p>
+        <div class="d-flex justify-content-between align-items-center">
+          <span th:text="${book.yearPublished}"></span>
+          <a class="btn btn-info" th:href="@{'/book/find/details?id='+${book.id}}" >Details</a>
+          <span th:text="${book.price}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" href="../static/bootstrap/css/bootstrap.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #5f2c82, #49a09d); /* Gradient background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      color: #fff; /* White text color */
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+      border-radius: 10px;
+      padding: 60px; /* Increased padding for more space */
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      width: 350px; /* Increased width */
+      backdrop-filter: blur(5px); /* Background blur */
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px; /* Space below the heading */
+      font-size: 1.8em; /* Slightly larger font size */
+    }
+
+    .form-group {
+      margin-bottom: 20px; /* Space between form fields */
+    }
+
+    input.form-control {
+      height: 45px; /* Input field height */
+      border-radius: 5px; /* Rounded corners */
+      background-color: rgba(255, 255, 255, 0.3); /* Light background for input */
+      border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
+      color: #fff; /* Input text color */
+    }
+
+    input.form-control::placeholder {
+      color: #ddd; /* Placeholder text color */
+    }
+
+    .btn-primary {
+      background-color: #49a09d; /* Button color */
+      border: none; /* No border */
+      border-radius: 5px; /* Rounded corners */
+      padding: 10px; /* Button padding */
+      font-size: 16px; /* Button font size */
+      cursor: pointer; /* Pointer on hover */
+      transition: background-color 0.3s; /* Transition effect */
+      width: 100%; /* Full width */
+    }
+
+    .btn-primary:hover {
+      background-color: #5f2c82; /* Darker shade on hover */
+    }
+
+    .text-center {
+      text-align: center; /* Center align text */
+    }
+
+    .form-check {
+      margin-bottom: 20px; /* Space below checkbox */
+    }
+
+    .error-message {
+      color: #ffcccc; /* Red color for error messages */
+      text-align: center; /* Center align error messages */
+      margin-top: 10px; /* Space above error messages */
+    }
+  </style>
+</head>
+<body>
+<div class="login-container">
+  <h2>Login</h2>
+  <div class="error-message" th:if="${error}" th:text="${error}"></div> <!-- Error message -->
+  <form th:action="@{/login}" method="post">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+    </div>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="viewPassword">
+      <label class="form-check-label" for="viewPassword">View Password</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <div class="text-center">
+      <p>Don't have an account? <a href="#" style="color: #49a09d;">Sign up</a></p>
+      <p><a href="#" style="color: #49a09d;">Forgot Password?</a></p> <!-- Forgot password link -->
+    </div>
+  </form>
+</div>
+
+<script>
+  // Toggle password visibility
+  document.getElementById('viewPassword').addEventListener('change', function () {
+    const passwordField = document.getElementById('password');
+    passwordField.setAttribute('type', this.checked ? 'text' : 'password'); // Show or hide password
+  });
+</script>
+</body>
+</html>
