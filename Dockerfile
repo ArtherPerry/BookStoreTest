@@ -5,7 +5,7 @@ FROM eclipse-temurin:22-jdk-alpine
 WORKDIR /app
 
 # Copy the built JAR file into the container
-COPY target/BookStoreTest.jar app.jar
+COPY target/BookStoreTest-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port Render will use
 EXPOSE 8080
