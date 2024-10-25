@@ -4,9 +4,14 @@ FROM eclipse-temurin:22-jdk-alpine AS build
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven project files
+# Copy the Maven wrapper script and configuration
+COPY mvnw .
+COPY .mvn .mvn
 COPY pom.xml .
 COPY src ./src
+
+# Give execution permissions to the Maven wrapper
+RUN chmod +x mvnw
 
 # Build the Spring Boot app
 RUN ./mvnw clean package
