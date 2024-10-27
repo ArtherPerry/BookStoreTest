@@ -130,20 +130,15 @@ public class CustomerController {
 
         String emailSubject = "Order Confirmation - Thank You for Your Purchase!";
         String emailBody = String.format(
-                """
-                        Dear %s,
-
-                        Thank you for your purchase. Here are your order details:
-
-                        Name: %s
-                        Phone: %s
-                        Address: %s
-                        Email: %s
-
-                        We will send you a confirmation email soon.
-
-                        Best regards,
-                        Your Store""",
+                "Dear %s,\n\n" +
+                        "Thank you for your purchase. Here are your order details:\n\n" +
+                        "Name: %s\n" +
+                        "Phone: %s\n" +
+                        "Address: %s\n" +
+                        "Email: %s\n\n" +
+                        "We will send you a confirmation email soon.\n\n" +
+                        "Best regards,\n" +
+                        "Your Store",
                 customer.getName(), customer.getName(), customer.getPhoneNumber(),
                 customer.getAddress(), customer.getEmail());
 
