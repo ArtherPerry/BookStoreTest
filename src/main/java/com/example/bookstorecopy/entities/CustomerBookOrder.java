@@ -30,7 +30,9 @@ public class CustomerBookOrder {
     @JoinTable(
             name = "customer_book_order_items",
             joinColumns = @JoinColumn(name = "customer_book_order_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
+            inverseJoinColumns = @JoinColumn(name = "book_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"customer_book_order_id", "book_id"})
+
     )
     private List<Book> books = new ArrayList<>();
 }
