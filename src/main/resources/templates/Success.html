@@ -41,7 +41,7 @@
                                 <tfoot>
                                 <tr>
                                     <td colspan="2" class="text-right"><strong>Total:</strong></td>
-                                    <td th:text="${#numbers.formatDecimal(cartItems.stream().mapToDouble(item -> item.price).sum(), 1, 2)}"></td>
+                                    <td id="total-price">0.00</td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -71,5 +71,22 @@
         </div>
     </div>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let totalPrice = 0;
+        const priceElements = document.querySelectorAll('.item-price');
+
+        // Loop through each price and sum them
+        priceElements.forEach(function(priceElement) {
+            const price = parseFloat(priceElement.textContent);
+            if (!isNaN(price)) {
+                totalPrice += price;
+            }
+        });
+
+        // Update the total price in the footer
+        document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+    });
+</script>
 </body>
 </html>
